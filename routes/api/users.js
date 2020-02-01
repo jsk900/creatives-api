@@ -93,12 +93,7 @@ router.post(
       //Add certain saved fields to the token payload for use on the front end.
       const payload = {
         user: {
-          id: user.id,
-          avatar,
-          name,
-          email,
-          emailVisible,
-          emailNotificationAllowed
+          id: user.id
         }
       };
 
@@ -109,7 +104,7 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, user });
         }
       );
     } catch (err) {
