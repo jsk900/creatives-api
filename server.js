@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/db');
 
 const app = express();
@@ -11,17 +12,20 @@ connectDB();
 //Eliminating the need to use the body-parser library
 app.use(express.json({ extended: false }));
 
+//Enable cors
+app.use(cors());
+
 app.get('/', (req, res) => res.send('Server running'));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  if (req.method === 'OPTIONS') {
-    res.header('Access=Control-Allow-Methods', 'POST, PUT, DELETE, GET');
-    return res.status(200).json({});
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', '*');
+//   if (req.method === 'OPTIONS') {
+//     res.header('Access=Control-Allow-Methods', 'POST, PUT, DELETE, GET');
+//     return res.status(200).json({});
+//   }
+//   next();
+// });
 
 //Define routes
 
