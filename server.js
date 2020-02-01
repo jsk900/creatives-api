@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
@@ -14,21 +15,11 @@ app.use(express.json({ extended: false }));
 
 //Enable cors
 app.use(cors());
+app.use(fileUpload);
 
 app.get('/', (req, res) => res.send('Server running'));
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', '*');
-//   if (req.method === 'OPTIONS') {
-//     res.header('Access=Control-Allow-Methods', 'POST, PUT, DELETE, GET');
-//     return res.status(200).json({});
-//   }
-//   next();
-// });
-
 //Define routes
-
 app.use('/api', require('./routes/api/users'));
 app.use('/api', require('./routes/api/creatives'));
 app.use('/api', require('./routes/api/login'));
@@ -37,6 +28,7 @@ app.use('/api', require('./routes/api/categories'));
 app.use('/api', require('./routes/api/messages'));
 app.use('/api', require('./routes/api/works'));
 app.use('/api', require('./routes/api/searches'));
+app.use('/api', require('./routes/api/avatarUpload'));
 
 const PORT = process.env.PORT || 5000;
 
