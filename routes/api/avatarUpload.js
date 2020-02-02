@@ -13,24 +13,25 @@ const router = express.Router();
 //@desc    Post avatar path details
 //@access  Public
 
-router.post(
-  '/avatarUpload',
-  
-  async (req, res) => {
-   if (req.files === null) {
-       return res.status(400).json({msg: 'No file was uploaded'})
-   }
+// router.post(
+//   '/avatarUpload',
 
-   const file = req.files.file;
+//   async (req, res) => {
+//     if (req.files === null) {
+//       return res.status(400).json({ msg: 'No file was uploaded' });
+//     }
 
-   file.mv(`${__dirname}/uploads/${file.name}`, err => {
-       if (err) {
-           console.log(err)
-           return res.status(500).send(err)
-       }
+//     const file = req.files.file;
 
-       res.json({fileName: file.name, filePath: `/uploads/${file.name}`})
-   })
+//     file.mv(`${__dirname}/uploads/${file.name}`, err => {
+//       if (err) {
+//         console.log(err);
+//         return res.status(500).send(err);
+//       }
 
-)
-module.exports = router;
+//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+//     });
+//   }
+// );
+
+// module.exports = router;

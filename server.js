@@ -28,7 +28,7 @@ app.use('/api', require('./routes/api/categories'));
 app.use('/api', require('./routes/api/messages'));
 app.use('/api', require('./routes/api/works'));
 app.use('/api', require('./routes/api/searches'));
-app.use('/api', require('./routes/api/avatarUpload'));
+// app.use('/api', require('./routes/api/avatarUpload'));
 
 const PORT = process.env.PORT || 5000;
 
