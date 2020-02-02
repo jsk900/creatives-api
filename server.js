@@ -1,5 +1,5 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
@@ -15,7 +15,7 @@ app.use(express.json({ extended: false }));
 
 //Enable cors
 app.use(cors());
-app.use(fileUpload);
+// app.use(fileUpload);
 
 app.get('/', (req, res) => res.send('Server running'));
 
