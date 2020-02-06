@@ -104,7 +104,7 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token, user });
+          res.json({ token, user, errors });
         }
       );
     } catch (err) {

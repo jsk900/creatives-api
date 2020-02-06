@@ -130,10 +130,10 @@ router.post(
           .json({ errors: [{ msg: 'Please select at least one category' }] });
       }
 
-      //Category is an array of strings so we need to trim.
-      if (category.length > 1) {
-        creative.category = category.split(',').map(cat => cat.trim());
-      }
+      // //Category is an array of strings so we need to trim.
+      // if (category.length > 1) {
+      //   creative.category = category.split(',').map(cat => cat.trim());
+      // }
 
       //Build social object
       creative.social = {};

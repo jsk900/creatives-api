@@ -20,19 +20,72 @@ router.get(
 
   async (req, res) => {
     //De-structure body
-    const { test, categories, city, text, tags } = req.body;
+    const { test, categories = [], city, text, tags = [] } = req.body;
 
     //If the user has selected to search by creator. Get all creators and all the associated works.
+
     try {
-      const workCollection = await Work.aggregate([
+      const workCollection = await Creative.aggregate([
+        {
+          $match: {
+            ...(city && { city }),
+            ...(test === 'creatives' && { name: text })
+          }
+        },
         {
           $lookup: {
-            from: 'creatives',
-            localField: 'user',
-            foreignField: '_id',
-            as: 'creator'
+            from: 'works',
+
+            as: 'works',
+
+            let: {
+              id: '$_id'
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $and: [
+                      {
+                        $eq: ['$$id', '$user']
+                      },
+                      ...(test === 'creations'
+                        ? [
+                            {
+                              $eq: ['$fileTitle', text]
+                            }
+                          ]
+                        : []),
+                      ...(categories.length
+                        ? [
+                            {
+                              $in: ['$fileCategory', categories]
+                            }
+                          ]
+                        : []),
+                      ...(tags.length
+                        ? [
+                            {
+                              $in: ['$tags', tags]
+                            }
+                          ]
+                        : [])
+                    ]
+                  }
+                }
+              }
+            ]
           }
-        }
+        },
+        ...(test === 'creations'
+          ? [
+              {
+                $match: {
+                  'works.0': { $exists: true }
+                }
+              }
+            ]
+          : [])
       ]);
 
       res.json(workCollection);
