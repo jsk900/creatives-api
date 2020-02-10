@@ -50,8 +50,7 @@ router.post(
         //All ok add user_id to token payload
         const payload = {
           user: {
-            id: user.id,
-            creative: false
+            id: user.id
           }
         };
 
@@ -62,7 +61,7 @@ router.post(
           { expiresIn: 360000 },
           (err, token) => {
             if (err) throw err;
-            res.json({ token });
+            res.json({ token, user });
           }
         );
       } else {
@@ -83,8 +82,7 @@ router.post(
         //All ok add user_id to token payload
         const payload = {
           user: {
-            id: creative.id,
-            creative: true
+            id: creative.id
           }
         };
 
@@ -95,7 +93,7 @@ router.post(
           { expiresIn: 360000 },
           (err, token) => {
             if (err) throw err;
-            res.json({ token });
+            res.json({ token, user });
           }
         );
       }

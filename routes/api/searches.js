@@ -20,75 +20,132 @@ router.get(
 
   async (req, res) => {
     //De-structure body
-    const { test, categories = [], city, text, tags = [] } = req.body;
+    const { test = 'creatives', category, city, text, tags = [] } = req.body;
 
     //If the user has selected to search by creator. Get all creators and all the associated works.
 
     try {
-      const workCollection = await Creative.aggregate([
-        {
-          $match: {
-            ...(city && { city }),
-            ...(test === 'creatives' && { name: text })
-          }
-        },
-        {
-          $lookup: {
-            from: 'works',
-
-            as: 'works',
-
-            let: {
-              id: '$_id'
-            },
-            pipeline: [
-              {
-                $match: {
-                  $expr: {
-                    $and: [
-                      {
-                        $eq: ['$$id', '$user']
-                      },
-                      ...(test === 'creations'
-                        ? [
-                            {
-                              $eq: ['$fileTitle', text]
-                            }
-                          ]
-                        : []),
-                      ...(categories.length
-                        ? [
-                            {
-                              $in: ['$fileCategory', categories]
-                            }
-                          ]
-                        : []),
-                      ...(tags.length
-                        ? [
-                            {
-                              $in: ['$tags', tags]
-                            }
-                          ]
-                        : [])
-                    ]
+      if (test === 'creatives') {
+        const creativesCollection = await Creative.aggregate([
+          {
+            $match: {
+              ...(city && { city }),
+              ...(text && { name: text }),
+              ...(category && { category: { $in: ['$category', category] } })
+            }
+          },
+          {
+            $lookup: {
+              from: 'works',
+              as: 'works',
+              let: {
+                id: '$_id'
+              },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: {
+                      $and: [
+                        {
+                          $eq: ['$$id', '$user']
+                        },
+                        ...(category
+                          ? [
+                              {
+                                $eq: ['$fileCategory', category]
+                              }
+                            ]
+                          : []),
+                        ...(tags.length
+                          ? [
+                              {
+                                $size: {
+                                  $setIntersection: ['$tags', tags]
+                                }
+                              }
+                            ]
+                          : [])
+                      ]
+                    }
                   }
                 }
-              }
-            ]
-          }
-        },
-        ...(test === 'creations'
-          ? [
-              {
-                $match: {
-                  'works.0': { $exists: true }
+              ]
+            }
+          },
+          ...(category && tags.length
+            ? [
+                {
+                  $match: {
+                    'works.0': { $exists: true }
+                  }
                 }
-              }
-            ]
-          : [])
-      ]);
+              ]
+            : [])
+        ]);
 
-      res.json(workCollection);
+        res.json(creativesCollection);
+      } else if (test === 'creations') {
+        const worksCollection = await Creative.aggregate([
+          {
+            $match: {
+              ...(city && { city }),
+              ...(category && { category: { $in: ['$category', category] } })
+            }
+          },
+          {
+            $lookup: {
+              from: 'works',
+              as: 'works',
+              let: {
+                id: '$_id'
+              },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: {
+                      $and: [
+                        {
+                          $eq: ['$$id', '$user']
+                        },
+                        ...(category
+                          ? [
+                              {
+                                $eq: ['$fileCategory', category]
+                              }
+                            ]
+                          : []),
+                        ...(text
+                          ? [
+                              {
+                                $eq: ['$fileTitle', text]
+                              }
+                            ]
+                          : []),
+                        ...(tags.length
+                          ? [
+                              {
+                                $size: {
+                                  $setIntersection: ['$tags', tags]
+                                }
+                              }
+                            ]
+                          : [])
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            $match: {
+              'works.0': { $exists: true }
+            }
+          }
+        ]);
+
+        res.json(worksCollection);
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');

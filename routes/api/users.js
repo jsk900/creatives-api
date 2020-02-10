@@ -62,14 +62,14 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User already exists' }] });
+          .json({ errors: [{ msg: 'Email already registered' }] });
       }
 
       let creative = await Creative.findOne({ email });
       if (creative) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User already exists as a creative' }] });
+          .json({ errors: [{ msg: 'Email already registered' }] });
       }
 
       //Create the user object
@@ -80,7 +80,8 @@ router.post(
         emailNotificationAllowed,
         subscribeToNewsletter,
         password,
-        avatar
+        avatar,
+        creative: 'false'
       });
 
       //Encrypt the password
@@ -104,7 +105,7 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token, user, errors });
+          res.json({ token, user });
         }
       );
     } catch (err) {
@@ -212,13 +213,13 @@ router.put(
           if (emailFound) {
             return res
               .status(400)
-              .json({ errors: [{ msg: 'Email already exists' }] });
+              .json({ errors: [{ msg: 'Email already registered' }] });
           }
 
           let creative = await Creative.findOne({ email });
           if (creative) {
             return res.status(400).json({
-              errors: [{ msg: 'Email already exists as a creative' }]
+              errors: [{ msg: 'Email already registered' }]
             });
           }
         }
@@ -231,7 +232,8 @@ router.put(
           emailNotificationAllowed,
           subscribeToNewsletter,
           password,
-          avatar
+          avatar,
+          creative: false
         };
 
         //update

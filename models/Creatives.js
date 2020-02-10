@@ -73,6 +73,10 @@ const CreativesSchema = new mongoose.Schema({
   services: {
     type: Boolean
   },
+  creative: {
+    type: String,
+    default: 'true'
+  },
   date: {
     type: Date,
     default: Date.now

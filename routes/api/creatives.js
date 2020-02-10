@@ -85,14 +85,14 @@ router.post(
       if (creative) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Creative already exists' }] });
+          .json({ errors: [{ msg: 'Email already registered' }] });
       }
 
       let user = await User.findOne({ email });
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Creative already exists as a user' }] });
+          .json({ errors: [{ msg: 'Email already registered' }] });
       }
 
       //Create the creative object
@@ -116,7 +116,8 @@ router.post(
         flickr,
         deviantArt,
         pinterest,
-        services
+        services,
+        creative: 'true'
       });
 
       //Encrypt the password
@@ -129,11 +130,6 @@ router.post(
           .status(400)
           .json({ errors: [{ msg: 'Please select at least one category' }] });
       }
-
-      // //Category is an array of strings so we need to trim.
-      // if (category.length > 1) {
-      //   creative.category = category.split(',').map(cat => cat.trim());
-      // }
 
       //Build social object
       creative.social = {};
@@ -152,12 +148,7 @@ router.post(
       //Add certain saved fields to the token payload for use on the front end.
       const payload = {
         user: {
-          id: creative.id,
-          avatar,
-          name,
-          email,
-          website,
-          category
+          id: creative.id
         }
       };
 
@@ -357,7 +348,8 @@ router.put(
           flickr,
           deviantArt,
           pinterest,
-          services
+          services,
+          creative: 'true'
         };
 
         //update

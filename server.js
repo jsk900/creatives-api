@@ -1,6 +1,6 @@
 const express = require('express');
-// const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const helmet = require('helmet'); //Used to secure headers
 const connectDB = require('./config/db');
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.json({ extended: false }));
 
 //Enable cors
 app.use(cors());
-// app.use(fileUpload);
+app.use(helmet());
 
 app.get('/', (req, res) => res.send('Server running'));
 
@@ -28,7 +28,7 @@ app.use('/api', require('./routes/api/categories'));
 app.use('/api', require('./routes/api/messages'));
 app.use('/api', require('./routes/api/works'));
 app.use('/api', require('./routes/api/searches'));
-// app.use('/api', require('./routes/api/avatarUpload'));
+app.use('/api', require('./routes/api/showcase'));
 
 const PORT = process.env.PORT || 5000;
 
