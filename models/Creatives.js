@@ -29,10 +29,6 @@ const CreativesSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
-  country: {
-    type: String,
-    required: true
-  },
   city: {
     type: String,
     required: true

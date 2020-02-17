@@ -38,10 +38,6 @@ router.post(
       'password',
       'Please enter a password with 6 or more characters'
     ).isLength({ min: 6 }),
-
-    check('country', 'Country is required')
-      .not()
-      .isEmpty(),
     check('city', 'City is required')
       .not()
       .isEmpty(),
@@ -64,7 +60,6 @@ router.post(
       subscribeToNewsletter,
       password,
       avatar,
-      country,
       city,
       website,
       category,
@@ -104,7 +99,6 @@ router.post(
         subscribeToNewsletter,
         password,
         avatar,
-        country,
         city,
         website,
         category,
@@ -232,9 +226,6 @@ router.put(
         'password',
         'Please enter a password with 6 or more characters'
       ).isLength({ min: 6 }),
-      check('country', 'Country is required')
-        .not()
-        .isEmpty(),
       check('city', 'City is required')
         .not()
         .isEmpty(),
@@ -258,7 +249,6 @@ router.put(
       subscribeToNewsletter,
       password,
       avatar,
-      country,
       city,
       website,
       category,
@@ -336,7 +326,6 @@ router.put(
           subscribeToNewsletter,
           password,
           avatar,
-          country,
           city,
           website,
           category,

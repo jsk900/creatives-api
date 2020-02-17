@@ -5,6 +5,10 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  categoryIconPath: {
+    type: String,
+    required: true
+  },
   categoryTags: {
     type: [String],
     required: true

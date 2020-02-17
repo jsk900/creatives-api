@@ -19,6 +19,9 @@ router.post(
     check('categoryName', 'The Category Name is required')
       .not()
       .isEmpty(),
+    check('categoryIconPath', 'The Category Icon path is required')
+      .not()
+      .isEmpty(),
     check('categoryTags', 'At least one tag is required')
       .not()
       .isEmpty()
@@ -31,7 +34,7 @@ router.post(
     }
 
     //De-structure body
-    const { categoryName, categoryTags } = req.body;
+    const { categoryName, categoryIconPath, categoryTags } = req.body;
 
     //Make sure there are no duplicate categories
     try {
@@ -45,6 +48,7 @@ router.post(
       //Create the Category object
       category = new Category({
         categoryName,
+        categoryIconPath,
         categoryTags
       });
 
@@ -147,7 +151,7 @@ router.put(
 
   async (req, res) => {
     //De-structure the body
-    let { categoryName, categoryTags } = req.body;
+    let { categoryName, categoryIconPath, categoryTags } = req.body;
 
     try {
       const category = await Category.findOne({ categoryName: categoryName });
@@ -162,6 +166,7 @@ router.put(
         //Create update object
         let categoryUpdate = {
           categoryName,
+          categoryIconPath,
           categoryTags
         };
 
