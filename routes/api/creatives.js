@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 //Get the creatives Schema
-const Creative = require('../../models/Creatives');
+const Creative = require('../../Creatives');
 
 //Get the users Schema
 const User = require('../../models/User');
