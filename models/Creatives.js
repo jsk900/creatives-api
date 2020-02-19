@@ -41,28 +41,22 @@ const CreativesSchema = new mongoose.Schema({
     required: true
   },
   social: {
-    youtube: {
-      type: String
-    },
-    twitter: {
-      type: String
-    },
-    facebook: {
-      type: String
-    },
-    linkedin: {
-      type: String
-    },
-    instagram: {
+    deviantArt: {
       type: String
     },
     flickr: {
       type: String
     },
-    deviantArt: {
+    pinterest: {
       type: String
     },
-    pinterest: {
+    instagram: {
+      type: String
+    },
+    behance: {
+      type: String
+    },
+    vimeo: {
       type: String
     }
   },

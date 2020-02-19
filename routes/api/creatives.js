@@ -63,14 +63,12 @@ router.post(
       city,
       website,
       category,
-      youtube,
-      twitter,
-      facebook,
-      linkedin,
-      instagram,
-      flickr,
       deviantArt,
+      flickr,
       pinterest,
+      instagram,
+      behance,
+      vimeo,
       services
     } = req.body;
 
@@ -102,14 +100,12 @@ router.post(
         city,
         website,
         category,
-        youtube,
-        twitter,
-        facebook,
-        linkedin,
-        instagram,
-        flickr,
         deviantArt,
+        flickr,
         pinterest,
+        instagram,
+        behance,
+        vimeo,
         services,
         creative: 'true'
       });
@@ -127,14 +123,12 @@ router.post(
 
       //Build social object
       creative.social = {};
-      creative.social.youtube = youtube;
-      creative.social.facebook = facebook;
-      creative.social.twitter = twitter;
-      creative.social.instagram = instagram;
-      creative.social.linkedin = linkedin;
-      creative.social.flickr = flickr;
       creative.social.deviantArt = deviantArt;
+      creative.social.flickr = flickr;
       creative.social.pinterest = pinterest;
+      creative.social.instagram = instagram;
+      creative.social.behance = behance;
+      creative.social.vimeo = vimeo;
 
       //Save user to the Database
       await creative.save();
@@ -252,14 +246,12 @@ router.put(
       city,
       website,
       category,
-      youtube,
-      twitter,
-      facebook,
-      linkedin,
-      instagram,
-      flickr,
       deviantArt,
+      flickr,
       pinterest,
+      instagram,
+      behance,
+      vimeo,
       services
     } = req.body;
 
@@ -308,14 +300,12 @@ router.put(
 
         //Build social object
         creative.social = {};
-        creative.social.youtube = youtube;
-        creative.social.facebook = facebook;
-        creative.social.twitter = twitter;
-        creative.social.instagram = instagram;
-        creative.social.linkedin = linkedin;
-        creative.social.flickr = flickr;
         creative.social.deviantArt = deviantArt;
+        creative.social.flickr = flickr;
         creative.social.pinterest = pinterest;
+        creative.social.instagram = instagram;
+        creative.social.behance = behance;
+        creative.social.vimeo = vimeo;
 
         //Create update object
         let creativeUpdate = {
@@ -329,14 +319,12 @@ router.put(
           city,
           website,
           category,
-          youtube,
-          twitter,
-          facebook,
-          linkedin,
-          instagram,
-          flickr,
           deviantArt,
+          flickr,
           pinterest,
+          instagram,
+          behance,
+          vimeo,
           services,
           creative: 'true'
         };
