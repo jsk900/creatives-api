@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.Schema.Types.Boolean.convertToFalse.add('');
+//mongoose.Schema.Types.Boolean.convertToFalse.add();
 mongoose.Schema.Types.Boolean.convertToTrue.add('on');
 
 const CreativesSchema = new mongoose.Schema({
