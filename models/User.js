@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-mongoose.Schema.Types.Boolean.convertToFalse.add('');
-mongoose.Schema.Types.Boolean.convertToTrue.add('on');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -13,16 +11,13 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   emailVisible: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   emailNotificationAllowed: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   subscribeToNewsletter: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
   password: {
     type: String,
