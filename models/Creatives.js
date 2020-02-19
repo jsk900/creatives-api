@@ -13,16 +13,13 @@ const CreativesSchema = new mongoose.Schema({
     unique: true
   },
   emailVisible: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   emailNotificationAllowed: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   subscribeToNewsletter: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
   password: {
     type: String,
