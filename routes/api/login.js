@@ -67,7 +67,6 @@ router.post(
         );
       } else {
         let creative = await Creative.findOne({ email });
-
         if (creative) {
           const isMatch = await bcrypt.compare(password, creative.password);
           if (!isMatch) {
@@ -79,7 +78,7 @@ router.post(
           //All ok add user_id to token payload
           const payload = {
             user: {
-              id: creative.id
+              id: user.id
             }
           };
 
