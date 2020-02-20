@@ -21,7 +21,7 @@ router.get(
   async (req, res) => {
     try {
       const creativesCollection = await Creative.aggregate([
-        { $limit: 5 },
+        { $limit: 12 },
         {
           $lookup: {
             from: 'works',
@@ -43,7 +43,7 @@ router.get(
         {
           $match: {
             'works.0': { $exists: true },
-            'works.3': { $exists: false }
+            'works.1': { $exists: false }
           }
         }
       ]);
