@@ -66,36 +66,33 @@ router.post(
         );
       } else {
         let creative = await Creative.findOne({ email });
-        if (!creative) {
-          return res
-            .status(400)
-            .json({ errors: [{ msg: 'Invalid credentials' }] });
-        }
 
-        const isMatch = await bcrypt.compare(password, creative.password);
-        if (!isMatch) {
-          return res
-            .status(400)
-            .json({ errors: [{ msg: 'Invalid credentials' }] });
-        }
-
-        //All ok add user_id to token payload
-        const payload = {
-          user: {
-            id: creative.id
+        if (creative) {
+          const isMatch = await bcrypt.compare(password, creative.password);
+          if (!isMatch) {
+            return res
+              .status(400)
+              .json({ errors: [{ msg: 'Invalid credentials' }] });
           }
-        };
 
-        //Create the token and return to the frontend.
-        jwt.sign(
-          payload,
-          process.env.JWT_SECRET,
-          { expiresIn: 360000 },
-          (err, token) => {
-            if (err) throw err;
-            res.json({ token, user });
-          }
-        );
+          //All ok add user_id to token payload
+          const payload = {
+            user: {
+              id: creative.id
+            }
+          };
+
+          //Create the token and return to the frontend.
+          jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: 360000 },
+            (err, token) => {
+              if (err) throw err;
+              res.json({ token, user });
+            }
+          );
+        }
       }
     } catch (err) {
       console.error(err.message);
