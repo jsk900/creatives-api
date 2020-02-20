@@ -44,7 +44,7 @@ const CreativesSchema = new mongoose.Schema({
     flickr: {
       type: String
     },
-    pinterest: {
+    soundcloud: {
       type: String
     },
     instagram: {

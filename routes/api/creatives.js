@@ -65,7 +65,7 @@ router.post(
       category,
       deviantArt,
       flickr,
-      pinterest,
+      soundcloud,
       instagram,
       behance,
       vimeo,
@@ -102,7 +102,7 @@ router.post(
         category,
         deviantArt,
         flickr,
-        pinterest,
+        soundcloud,
         instagram,
         behance,
         vimeo,
@@ -125,7 +125,7 @@ router.post(
       creative.social = {};
       creative.social.deviantArt = deviantArt;
       creative.social.flickr = flickr;
-      creative.social.pinterest = pinterest;
+      creative.social.soundcloud = soundcloud;
       creative.social.instagram = instagram;
       creative.social.behance = behance;
       creative.social.vimeo = vimeo;
@@ -248,7 +248,7 @@ router.put(
       category,
       deviantArt,
       flickr,
-      pinterest,
+      soundcloud,
       instagram,
       behance,
       vimeo,
@@ -302,7 +302,7 @@ router.put(
         creative.social = {};
         creative.social.deviantArt = deviantArt;
         creative.social.flickr = flickr;
-        creative.social.pinterest = pinterest;
+        creative.social.soundcloud = soundcloud;
         creative.social.instagram = instagram;
         creative.social.behance = behance;
         creative.social.vimeo = vimeo;
@@ -321,7 +321,7 @@ router.put(
           category,
           deviantArt,
           flickr,
-          pinterest,
+          soundcloud,
           instagram,
           behance,
           vimeo,
