@@ -39,6 +39,7 @@ router.post(
     //Check incoming email and password in both the user and creatives collections
     try {
       let user = await User.findOne({ email });
+
       if (user) {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
@@ -92,6 +93,10 @@ router.post(
               res.json({ token, user });
             }
           );
+        } else {
+          return res
+            .status(400)
+            .json({ errors: [{ msg: 'Invalid credentials' }] });
         }
       }
     } catch (err) {
