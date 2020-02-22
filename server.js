@@ -13,6 +13,10 @@ connectDB();
 //Eliminating the need to use the body-parser library
 app.use(express.json({ extended: false }));
 
+//Protect and secure headers with Helmet
+app.use(helmet());
+app.use(helmet.noCache()); //Disables client side caching
+
 //Enable cors
 app.use(cors());
 app.use(helmet());
