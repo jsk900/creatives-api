@@ -20,7 +20,7 @@ router.get(
 
   async (req, res) => {
     //De-structure body
-    const { type, category, city, text, tags = [] } = req.body;
+    const { type = 'creatives', category, city, text, tags = [] } = req.body;
 
     //If the user has selected to search by creator. Get all creators and all the associated works.
 
