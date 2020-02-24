@@ -11,16 +11,15 @@ const router = express.Router();
 
 //...............................................................................................................................
 
-//@route   GET api/search
-//@desc    Get search results
+//@route   POST api/search
+//@desc    Get search results with a POST request
 //@access  Public
 
-router.get(
+router.post(
   '/search',
 
   async (req, res) => {
     //De-structure body
-    console.log(req.body);
     const { type, category, city, text, tags = [] } = req.body;
 
     //If the user has selected to search by creator. Get all creators and all the associated works.
