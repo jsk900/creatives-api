@@ -20,12 +20,12 @@ router.get(
 
   async (req, res) => {
     //De-structure body
-    const { type, category, city, text, tags = [] } = req.body;
+    const { category, city, text, tags = [] } = req.body;
 
     //If the user has selected to search by creator. Get all creators and all the associated works.
-
+    const type = 'creatives';
     try {
-      if (type === "creatives") {
+      if (type === 'creatives') {
         const creativesCollection = await Creative.aggregate([
           {
             $match: {
