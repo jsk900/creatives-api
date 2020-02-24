@@ -25,7 +25,7 @@ router.get(
     //If the user has selected to search by creator. Get all creators and all the associated works.
 
     try {
-      if (type === 'creatives') {
+      if (type == 'creatives') {
         const creativesCollection = await Creative.aggregate([
           {
             $match: {
