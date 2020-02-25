@@ -201,6 +201,33 @@ router.get('/creative/:creative_id', async (req, res) => {
   }
 });
 
+//..................................................................................................................
+
+//@route   GET api/getCreativeByName:categoryName
+//@desc    Get creative details by creative name
+//@access  Public
+
+//Get creative by creative name
+router.get(
+  '/getCreativeByName/:creativeName',
+
+  async (req, res) => {
+    try {
+      const creative = await Creative.findOne({
+        name: req.params.creativeName
+      });
+
+      if (!creative) return res.status(404).json({ msg: 'Creative not found' });
+
+      //All good return creative details to frontend
+      res.json(creative);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
 //.........................................................................................................................
 
 //@route   PUT api/creativeUpdate/
