@@ -203,7 +203,7 @@ router.get('/creative/:creative_id', async (req, res) => {
 
 //..................................................................................................................
 
-//@route   GET api/getCreativeByName:categoryName
+//@route   GET api/getCreativeByName:creativeName
 //@desc    Get creative details by creative name
 //@access  Public
 
