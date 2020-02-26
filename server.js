@@ -18,7 +18,7 @@ app.use(express.json({ extended: false }));
 // app.use(helmet.noCache()); //Disables client side caching
 
 //Enable cors
-//app.use(cors());
+app.use(cors());
 
 app.get('/', (req, res) => res.send('Server running'));
 
