@@ -123,7 +123,7 @@ router.post(
 
 router.get('/getUserDetails', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id);
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -196,9 +196,11 @@ router.put(
       const user = await User.findById(req.user.id);
 
       if (user) {
-        //Re-encrypt password
-        const salt = await bcrypt.genSalt(10);
-        password = await bcrypt.hash(password, salt);
+        if (password !== user.password) {
+          //Re-encrypt password
+          const salt = await bcrypt.genSalt(10);
+          password = await bcrypt.hash(password, salt);
+        }
 
         //Check if avatar has changed
         if (avatar !== user.avatar) {
