@@ -38,7 +38,7 @@ router.post(
         text: message
       });
 
-      res.send('Email sent');
+      res.json({ message: 'Email sent' });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
