@@ -31,8 +31,7 @@ router.post(
 
       // send mail with defined transport object
       let info = await transporter.sendMail({
-        from: name,
-        email,
+        from: `${name}${email}`,
         to: 'creatives@goldencat.co.uk',
         subject: `Contact from Creatives site by ${name}`,
         text: message
