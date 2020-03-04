@@ -48,7 +48,27 @@ router.get(
         }
       ]);
 
-      res.json(creativesCollection);
+      // This is a hacky workaround, to randomize the works order, without touching the frontend -----------------------
+      const randomizedCreativesCollection = creativesCollection.reduce((accumulator, creative) => {
+          for(const work of creative.works) {
+            accumulator.push({...creative, works: [work]})
+          }
+          return accumulator
+      }, [])
+
+
+      let currentIndex = randomizedCreativesCollection.length, temporaryValue, randomIndex;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = randomizedCreativesCollection[currentIndex];
+        randomizedCreativesCollection[currentIndex] = randomizedCreativesCollection[randomIndex];
+        randomizedCreativesCollection[randomIndex] = temporaryValue;
+      }
+      // ---------------------------------------------------------------------------------------------------------------
+
+      res.json(randomizedCreativesCollection);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
